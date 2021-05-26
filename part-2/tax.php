@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,30 +27,31 @@
 
 </head>
 <body>
+    
 <fieldset>
     <form  class="taxx" name="tax" action="tax.php" method="post" >
     <label>
     Enter your salary (USD):
-    <input type="number" name="salary" >
+    <input type="number" name="salary" value="<?php echo $_POST['salary']?>" >
     </label>
     <p></p>
     
     <fieldset>
         <label>
         Yearly
-    <input type="radio" name="type" id="yearly" value="yearly" >
+    <input type="radio" name="type" id="yearly" value="yearly" <?php if($_POST['type']=="yearly"){ ?>checked <?php }?>>
 </label>
 
 <label>
   Monthly
-    <input type="radio" name="type" id="monthly" value="monthly" >
+    <input type="radio" name="type" id="monthly" value="monthly" <?php if($_POST['type']=="monthly"){ ?>checked <?php }?> >
 </label>
     <fieldset>
     <p></p> 
 
     <label>
     Tax Free Allowance (USD)
-    <input type="number" name="taxfree" >
+    <input type="number" name="taxfree" value="<?php echo $_POST['taxfree']?>" >
     </label>
 
     <input type="submit" name="calculate" value="calculate" >
@@ -98,6 +102,7 @@ $mainSalary=$salary-$tax-$ssf+$taxFree;
 
 
 if(isset($_REQUEST["calculate"])){
+    if(!empty($salary)&&!empty($taxFree)&&!empty($radio)){
     $arr=array("Total Salary","Tax amount" , "Social security fee" , "Salary after tax");
     $arr2=[$salary,$tax,$ssf,$mainSalary];
     $arr3=[$salary/12,$tax/12,$ssf/12,$mainSalary/12];
@@ -141,4 +146,12 @@ $count3 = $count3+1;
 
 <?php
 }
+else{
+    ?>
+<h2 style="color:red ">you should fill all the field"</h2>
+    <?php
+}
+
+}
+
 ?>
