@@ -29,6 +29,8 @@ if(isset($_REQUEST['sIn'])){
         grid-column:2/3 ; 
         background-color:yellow;
         height: 100%;
+        padding-top:8px;
+        padding-left:8px;
         
     }
 </style>
@@ -39,7 +41,7 @@ if(isset($_REQUEST['sIn'])){
 <form class="SIGNUP"name="signUp" action="home.php" method="post" >
     <label>
      Full Name
-     <input type="text" name="name" required>
+     <input type="text" name="name" >
     </label>
       <p></p>
     <label>
@@ -113,19 +115,27 @@ function signup(){
  $birthday = $_POST['birthday'];
  $sd = $_POST['sd'];
  
-  if(isset($name)&&isset($userName)&&isset($password)&&isset($confirmPassword)&&isset($email)&&isset($tel)&&isset($birthday)&&isset($sd)){
+  if(!empty($name)&&!empty($userName)&&!empty($password)&&!empty($confirmPassword)&&!empty($email)&&!empty($tel)&&!empty($birthday)&&!empty($sd)){
   $arr=array("Name"=>$name,"User-Name"=>$userName,"Password"=>$password,"Eamil"=>$email,"Phone"=>$tel,"Birthday"=>$birthday,"Security"=>$sd);
-  if($password!=$confirmPassword){
-      die(" password and Confirm Password is not equal") ; 
+  
+  if(!preg_match("/^([a-zA-Z' ]+)$/",$name)){
+    die("Invalid name given.");
+
+}
+      if($password!=$confirmPassword){
+      die(" password and Confirm Password not equal") ; 
     }
     
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         die("Invalid email format");
     }
+    
+
 
     $_SESSION['sUp']=$arr;
   }
+  
     else{
         die("you should fill all the fields");
     }
@@ -145,9 +155,5 @@ if(isset($userName2)&&isset($password2)){
 
 }
 
- 
- 
- 
 
-  
 ?>

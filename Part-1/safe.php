@@ -36,7 +36,7 @@ if($_SESSION['sIn'][0]==$_SESSION['sUp']['User-Name']&&$_SESSION['sIn'][1]==$_SE
 
 
 else{
-    echo " not welcome";
+    echo "you should signup first ";
     
 }
 
