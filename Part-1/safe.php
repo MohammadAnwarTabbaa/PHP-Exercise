@@ -5,6 +5,7 @@ session_start();
 table , th {
     border: 1px solid ; 
     width:50%;
+    /* hi */
     }
     th{
         text-align: left;
